@@ -1,2 +1,0 @@
-# Digilocker
-private usage
