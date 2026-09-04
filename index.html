@@ -3,85 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DigiLocker Demo</title>
+    <title>DemoLocker - School Project</title>
     <style>
         :root {
             --primary-blue: #0b3c5d;
+            --secondary-blue: #1d6396;
             --accent-orange: #f39c12;
+            --accent-green: #2ecc71;
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
-            --text-main: #333333;
+            --text-main: #263238;
+            --text-muted: #78909c;
+            --border-color: #e0e0e0;
+            --focus-ring: #1d6396;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            padding-bottom: 70px;
+            padding-bottom: 78px;
         }
-        /* Simulated DigiLocker Header */
+
+        button, input, label { font-family: inherit; }
+
+        :focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+
+        /* Top Navigation Header */
         .app-header {
             background-color: var(--primary-blue);
             color: white;
-            padding: 16px;
+            padding: var(--space-3) var(--space-4);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        .logo-icon {
+            background-color: var(--accent-orange);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
         }
         .app-header h1 {
             font-size: 18px;
             margin: 0;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
         }
         .badge {
-            background-color: var(--accent-orange);
-            color: white;
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .container {
-            padding: 16px;
-        }
-        .section-title {
-            font-size: 15px;
-            font-weight: bold;
+            background-color: #e3f2fd;
             color: var(--primary-blue);
-            margin: 16px 0 8px 0;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        /* Fictional-project disclosure strip */
+        .disclosure {
+            background: #fff8e1;
+            color: #7a5b00;
+            font-size: 11.5px;
+            text-align: center;
+            padding: 6px var(--space-4);
+            border-bottom: 1px solid #f2e2a8;
+        }
+
+        .container {
+            padding: var(--space-4);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Identity Banner */
+        .profile-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            box-shadow: 0 4px 6px rgba(11, 60, 93, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        /* Profile Card mockup */
-        .profile-card {
-            background: linear-gradient(135deg, #0b3c5d, #1d6396);
+        .profile-info h2 { margin: 0 0 4px 0; font-size: 17px; font-weight: 600; }
+        .profile-info p { margin: 0; font-size: 12px; opacity: 0.85; }
+        .verified-tick {
+            background: var(--accent-green);
             color: white;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(11, 60, 93, 0.2);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
         }
-        .profile-card h2 { margin: 0 0 4px 0; font-size: 18px; }
-        .profile-card p { margin: 0; font-size: 13px; opacity: 0.8; }
 
-        /* Upload Area */
+        /* Quick Upload Box */
         .upload-card {
             background: white;
             border: 2px dashed #b0bec5;
-            padding: 20px;
+            padding: var(--space-5);
             text-align: center;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: var(--space-5);
+            transition: background 0.2s, border-color 0.2s;
+            display: block;
         }
-        .upload-card p { margin: 8px 0 0 0; font-size: 13px; color: #78909c; }
-        
-        /* File List Layout */
+        .upload-card:hover { border-color: var(--secondary-blue); }
+        .upload-card:active { background: #eceff1; }
+        .upload-card p { margin: 6px 0 0 0; font-size: 13px; color: var(--text-muted); }
+        .upload-card .hint { font-size: 11px; margin-top: 2px; color: #a3b1b8; }
+        #fileInput { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: var(--space-4) 0 var(--space-3) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-title .count {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* Search */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            margin-bottom: var(--space-4);
+        }
+        .search-bar svg { flex-shrink: 0; color: var(--text-muted); }
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            color: var(--text-main);
+            background: transparent;
+        }
+        .search-bar input::placeholder { color: #a3b1b8; }
+
+        /* Issued/Uploaded File Cards */
         .doc-list {
             display: flex;
             flex-direction: column;
@@ -89,19 +195,29 @@
         }
         .doc-item {
             background: var(--card-bg);
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: var(--space-3) var(--space-3) var(--space-3) 14px;
+            border-radius: var(--radius-sm);
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid var(--primary-blue);
+            gap: var(--space-2);
+            border-left: 4px solid var(--accent-orange);
         }
-        .doc-info h4 { margin: 0 0 4px 0; font-size: 15px; }
-        .doc-info span { font-size: 11px; color: #78909c; }
-        .view-btn {
-            background-color: #e3f2fd;
-            color: var(--primary-blue);
+        .doc-item.uploaded { border-left-color: var(--accent-green); }
+        .doc-info { min-width: 0; }
+        .doc-info h4 {
+            margin: 0 0 3px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .doc-info span { font-size: 11px; color: var(--text-muted); }
+        .doc-actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .view-btn, .delete-btn {
             border: none;
             padding: 6px 12px;
             border-radius: 6px;
@@ -109,9 +225,47 @@
             font-size: 12px;
             cursor: pointer;
         }
-        #fileInput { display: none; }
+        .view-btn { background-color: #e3f2fd; color: var(--primary-blue); }
+        .view-btn:hover { background-color: #d0e8fc; }
+        .delete-btn { background-color: #fdecea; color: #c0392b; }
+        .delete-btn:hover { background-color: #fadbd8; }
 
-        /* Bottom Nav Mockup */
+        /* Empty state */
+        .empty-state {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-6) var(--space-4);
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .empty-state svg { margin-bottom: var(--space-2); color: #cfd8dc; }
+        .empty-state p { margin: 0; font-size: 13px; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 90px;
+            transform: translateX(-50%) translateY(10px);
+            background: #1c1c1c;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 200;
+            max-width: 90%;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Simulated Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -120,103 +274,231 @@
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid var(--border-color);
+            z-index: 100;
         }
         .nav-item {
             text-align: center;
-            font-size: 11px;
-            color: #78909c;
+            font-size: 10px;
+            color: var(--text-muted);
             font-weight: 500;
+            background: none;
+            border: none;
+            padding: 4px 10px;
+            cursor: pointer;
         }
         .nav-item.active { color: var(--primary-blue); }
+        .nav-icon { font-size: 18px; display: block; margin-bottom: 2px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .upload-card, .view-btn, .delete-btn, .toast { transition: none; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Header Section -->
     <div class="app-header">
-        <h1>DigiLocker <span style="font-weight: 300; font-size: 14px;">(Demo)</span></h1>
-        <div class="badge">Project Version</div>
+        <div class="logo-area">
+            <div class="logo-icon" aria-hidden="true">DL</div>
+            <h1>DemoLocker</h1>
+        </div>
+        <div class="badge">Project Demo</div>
     </div>
+    <div class="disclosure">Fictional prototype built for a school project — not affiliated with any government service.</div>
 
     <div class="container">
-        <!-- Profile Banner -->
+        <!-- Identity Summary Card -->
         <div class="profile-card">
-            <h2>Student Account</h2>
-            <p>Verified User • Academic Profile</p>
+            <div class="profile-info">
+                <h2>Student User</h2>
+                <p>ID: DEMO-2026-9988</p>
+            </div>
+            <div class="verified-tick" aria-label="Verified" title="Verified">✓</div>
         </div>
 
-        <!-- File Uploader trigger -->
-        <label class="upload-card" style="display: block;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b3c5d" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            <p><strong>Tap to upload project document</strong> (PDF, Image)</p>
-            <input type="file" id="fileInput" onchange="uploadFile(event)">
+        <!-- File Upload Section -->
+        <label class="upload-card" for="fileInput">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b3c5d" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <p><strong>Upload File</strong></p>
+            <p class="hint">PDF or image, up to 2 MB</p>
+            <input type="file" id="fileInput" accept=".pdf,image/*" onchange="uploadFile(event)">
         </label>
 
         <div class="section-title">
-            <span>Issued & Uploaded Files</span>
+            <span>Issued Documents</span>
+            <span class="count" id="docCount">Synced</span>
         </div>
 
-        <div class="doc-list" id="docList">
-            <!-- Dynamic Files Injected Here -->
+        <div class="search-bar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchInput" placeholder="Search documents" oninput="renderDocs()" aria-label="Search documents">
         </div>
+
+        <!-- Document list (rendered by script) -->
+        <div class="doc-list" id="docList"></div>
     </div>
 
-    <!-- Simulated Bottom Navigation Bar -->
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
-        <div class="nav-item active">🏠<br>Home</div>
-        <div class="nav-item">📁<br>Issued</div>
-        <div class="nav-item">🔍<br>Search</div>
-        <div class="nav-item">👤<br>Menu</div>
+        <button class="nav-item active" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">🏠</span>Home
+        </button>
+        <button class="nav-item" onclick="document.getElementById('docList').scrollIntoView({behavior:'smooth'})">
+            <span class="nav-icon" aria-hidden="true">📁</span>Issued
+        </button>
+        <button class="nav-item" onclick="document.getElementById('searchInput').focus()">
+            <span class="nav-icon" aria-hidden="true">🔍</span>Search
+        </button>
+        <button class="nav-item" onclick="showToast('Menu is not wired up in this demo')">
+            <span class="nav-icon" aria-hidden="true">👤</span>Menu
+        </button>
     </div>
 
     <script>
-        let userDocs = JSON.parse(localStorage.getItem('digilocker_demo_files') || '[]');
+        const MAX_FILE_BYTES = 2 * 1024 * 1024; // 2 MB, keeps well under localStorage quota
+        const STORAGE_KEY = 'demolocker_files';
+
+        const issuedDocs = [
+            { name: 'Higher Secondary Marksheet', meta: 'Issuer: Education Board • Verified' }
+        ];
+
+        let customDocs = [];
+        try {
+            customDocs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        } catch (e) {
+            customDocs = [];
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(showToast._t);
+            showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        function persist() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(customDocs));
+            } catch (e) {
+                showToast('Storage is full — try deleting an older file first');
+            }
+        }
 
         function renderDocs() {
             const list = document.getElementById('docList');
-            list.innerHTML = '';
-            
-            if (userDocs.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#999; font-size:13px; margin-top:20px;">No documents added to wallet yet.</p>';
+            const countEl = document.getElementById('docCount');
+            const query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+
+            const issuedMatches = issuedDocs.filter(d => d.name.toLowerCase().includes(query));
+            const uploadedMatches = customDocs
+                .map((doc, idx) => ({ ...doc, idx }))
+                .filter(d => d.name.toLowerCase().includes(query));
+
+            const total = issuedMatches.length + uploadedMatches.length;
+            countEl.textContent = query ? `${total} match${total === 1 ? '' : 'es'}` : 'Synced';
+
+            if (total === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 12h6M9 16h6M9 8h6M5 4h14v16H5z"></path></svg>
+                        <p>${query ? 'No documents match your search.' : 'No documents yet — upload a file to see it here.'}</p>
+                    </div>`;
                 return;
             }
 
-            userDocs.forEach((doc, idx) => {
-                list.innerHTML += `
+            let html = '';
+            issuedMatches.forEach(doc => {
+                html += `
                     <div class="doc-item">
                         <div class="doc-info">
-                            <h4>${doc.name}</h4>
-                            <span>Saved Locally • ${doc.size}</span>
+                            <h4>${escapeHtml(doc.name)}</h4>
+                            <span>${escapeHtml(doc.meta)}</span>
                         </div>
-                        <button class="view-btn" onclick="openDoc(${idx})">View</button>
-                    </div>
-                `;
+                        <div class="doc-actions">
+                            <button class="view-btn" onclick="showToast('Demo placeholder document')">View</button>
+                        </div>
+                    </div>`;
             });
+            uploadedMatches.forEach(doc => {
+                html += `
+                    <div class="doc-item uploaded">
+                        <div class="doc-info">
+                            <h4>${escapeHtml(doc.name)}</h4>
+                            <span>Uploaded File • ${escapeHtml(doc.size)}</span>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="view-btn" onclick="openDoc(${doc.idx})">View</button>
+                            <button class="delete-btn" onclick="deleteDoc(${doc.idx})" aria-label="Delete ${escapeHtml(doc.name)}">Delete</button>
+                        </div>
+                    </div>`;
+            });
+            list.innerHTML = html;
         }
 
         function uploadFile(event) {
             const file = event.target.files[0];
             if (!file) return;
 
+            if (file.size > MAX_FILE_BYTES) {
+                showToast('File is too large for this demo (max 2 MB)');
+                event.target.value = '';
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = function(e) {
-                userDocs.push({
+                customDocs.push({
                     name: file.name,
                     size: (file.size / 1024).toFixed(1) + ' KB',
                     data: e.target.result
                 });
-                localStorage.setItem('digilocker_demo_files', JSON.stringify(userDocs));
+                persist();
                 renderDocs();
+                showToast('File uploaded');
+                event.target.value = '';
+            };
+            reader.onerror = function() {
+                showToast('Could not read that file');
             };
             reader.readAsDataURL(file);
         }
 
         function openDoc(index) {
-            const doc = userDocs[index];
-            const viewerWindow = window.open();
-            viewerWindow.document.write(`<iframe src="${doc.data}" style="width:100%; height:100%; border:none;"></iframe>`);
+            const doc = customDocs[index];
+            if (!doc) return;
+            const viewerWindow = window.open('', '_blank');
+            if (!viewerWindow) {
+                showToast('Pop-up blocked — allow pop-ups to preview this file');
+                return;
+            }
+            const safeName = escapeHtml(doc.name);
+            viewerWindow.document.write(
+                `<!DOCTYPE html><html><head><title>${safeName}</title></head>` +
+                `<body style="margin:0;"><iframe src="${doc.data}" title="${safeName}" style="width:100%;height:100vh;border:none;"></iframe></body></html>`
+            );
+            viewerWindow.document.close();
+        }
+
+        function deleteDoc(index) {
+            const doc = customDocs[index];
+            if (!doc) return;
+            customDocs.splice(index, 1);
+            persist();
+            renderDocs();
+            showToast('File deleted');
         }
 
         renderDocs();
