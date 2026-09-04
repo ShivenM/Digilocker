@@ -301,7 +301,7 @@
             <div class="logo-icon" aria-hidden="true">DL</div>
             <h1>Digilocker</h1>
         </div>
-        <div class="badge">Project Demo</div>
+        <div class="badge"></div>
     </div>
     <div class="disclosure">Fictional prototype built for a school project — not affiliated with any government service.</div>
 
@@ -310,7 +310,7 @@
         <div class="profile-card">
             <div class="profile-info">
                 <h2>Student User</h2>
-                <p>ID: DEMO-2026-9988</p>
+                <p>ID: 7234-2026-9988</p>
             </div>
             <div class="verified-tick" aria-label="Verified" title="Verified">✓</div>
         </div>
@@ -351,7 +351,7 @@
         <button class="nav-item" onclick="document.getElementById('searchInput').focus()">
             <span class="nav-icon" aria-hidden="true">🔍</span>Search
         </button>
-        <button class="nav-item" onclick="showToast('Menu is not wired up in this demo')">
+        <button class="nav-item" onclick="showToast('Something went wrong')">
             <span class="nav-icon" aria-hidden="true">👤</span>Menu
         </button>
     </div>
@@ -424,7 +424,7 @@
                             <span>${escapeHtml(doc.meta)}</span>
                         </div>
                         <div class="doc-actions">
-                            <button class="view-btn" onclick="showToast('Demo placeholder document')">View</button>
+                            <button class="view-btn" onclick="showToast('Placeholder document')">View</button>
                         </div>
                     </div>`;
             });
@@ -449,7 +449,7 @@
             if (!file) return;
 
             if (file.size > MAX_FILE_BYTES) {
-                showToast('File is too large for this demo (max 2 MB)');
+                showToast('File is too large for this usage (max 2 MB)');
                 event.target.value = '';
                 return;
             }
